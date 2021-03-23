@@ -26,12 +26,18 @@ export interface DiscordUser {
   discriminator: string;
 }
 
+/**
+ * The incoming request, created via API Gateway request templates.
+ */
 export interface DiscordEventRequest {
   timestamp: string;
   signature: string;
   jsonBody: DiscordJsonBody;
 }
 
+/**
+ * The actual Discord request data.
+ */
 export interface DiscordJsonBody {
   id?: string,
   token?: string,
@@ -41,22 +47,34 @@ export interface DiscordJsonBody {
   version: number;
 }
 
+/**
+ * The data in the Discord request. Should be handled for actually parsing commands.
+ */
 export interface DiscordRequestData {
   id: string;
   name: string;
   options?: DiscordRequestDataOption[];
 }
 
+/**
+ * The name and value for a given command option if available.
+ */
 export interface DiscordRequestDataOption {
   name: string;
   value: string;
 }
 
+/**
+ * The response to send back for a Discord request.
+ */
 export interface DiscordEventResponse {
   type: number;
   data?: DiscordResponseData;
 }
 
+/**
+ * The actual response data that will be used in the resulting Discord message.
+ */
 export interface DiscordResponseData {
   tts: boolean;
   content: string;

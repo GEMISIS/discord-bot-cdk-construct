@@ -75,7 +75,6 @@ export class DiscordBotConstruct extends Construct {
         'application/json': '{\r\n\
               "timestamp": "$input.params(\'x-signature-timestamp\')",\r\n\
               "signature": "$input.params(\'x-signature-ed25519\')",\r\n\
-              "jsonBodyString": "$util.escapeJavaScript($input.body).replace("\\\'", "\'")",\r\n\
               "jsonBody" : $input.json(\'$\')\r\n\
             }',
       },

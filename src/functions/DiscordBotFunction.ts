@@ -21,29 +21,21 @@ export async function handler(event: DiscordEventRequest, context: Context,
   if (event && await verifyEvent(event)) {
     switch (event.jsonBody.type) {
       case 1:
+        // Return pongs for pings
         return {
           type: 1,
         };
       case 2:
+        // Actual input request
         console.log('Invoking command lambda...');
         await lambda.invoke({
           FunctionName: commandLambdaARN,
           Payload: JSON.stringify(event),
           InvocationType: 'Event',
         }).promise();
-        console.log('Returning intermediate response...');
+        console.log('Returning temporary response...');
         return {
           type: 5,
-        };
-      default:
-        return {
-          type: 4,
-          data: {
-            tts: false,
-            content: 'beep boop - I\'m still learning how to respond to that command.',
-            embeds: [],
-            allowed_mentions: [],
-          },
         };
     }
   }
