@@ -45,6 +45,7 @@ export class DiscordBotConstruct extends Construct {
       },
       timeout: Duration.seconds(3),
     });
+    this.discordAPISecrets.grantRead(discordBotLambda);
     props.commandsLambdaFunction.grantInvoke(discordBotLambda);
 
     // Create our API Gateway
