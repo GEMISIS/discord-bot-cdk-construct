@@ -42,34 +42,6 @@ describe('Test DiscordBot', () => {
     mockVerify.mockReset();
   });
 
-  test('Test Handler - Special Success', async () => {
-    mockDiscordSecrets.mockReturnValueOnce(Promise.resolve({
-      appId: 'appId',
-      publicKey: 'publicKey',
-      clientId: 'clientId',
-      authToken: 'authToken'
-    }));
-    mockVerify.mockReturnValueOnce(true);
-    const result = await DiscordBot.handler({
-      timestamp: '',
-      signature: '',
-      jsonBody: {
-        type: 255,
-        version: 1
-      }
-    }, (null as unknown) as Context, (null as unknown) as Callback);
-
-    expect(result).toEqual({
-      type: 4,
-      data: {
-        tts: false,
-        content: "beep boop - I\'m still learning how to respond to that command.",
-        embeds: [],
-        allowed_mentions: []
-      }
-    });
-  });
-
   test('Test Handler - Default Command Success', async () => {
     mockDiscordSecrets.mockReturnValueOnce(Promise.resolve({
       appId: 'appId',
@@ -89,34 +61,6 @@ describe('Test DiscordBot', () => {
 
     expect(result).toEqual({
       type: 5
-    });
-  });
-
-  test('Test Handler (No Event Type) - Success', async () => {
-    mockDiscordSecrets.mockReturnValueOnce(Promise.resolve({
-      appId: 'appId',
-      publicKey: 'publicKey',
-      clientId: 'clientId',
-      authToken: 'authToken'
-    }));
-    mockVerify.mockReturnValueOnce(true);
-    const result = await DiscordBot.handler(({
-      timestamp: '',
-      signature: '',
-      jsonBody: {
-        type: 255,
-        version: 1
-      }
-    } as unknown) as DiscordEventRequest, (null as unknown) as Context, (null as unknown) as Callback);
-
-    expect(result).toEqual({
-      type: 4,
-      data: {
-        tts: false,
-        content: "beep boop - I\'m still learning how to respond to that command.",
-        embeds: [],
-        allowed_mentions: []
-      }
     });
   });
 
