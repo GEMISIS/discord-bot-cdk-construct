@@ -70,9 +70,7 @@ import * as path from 'path';
 import {DiscordBotConstruct} from 'discord-bot-cdk-construct';
 
 /**
- * Creates the APIs and code behind them for managing various
- * things in the backend of the Oculus Start bot (user authorization, event
- * management, etc.)
+ * Creates a sample Discord bot endpoint that can be used.
  */
 export class SampleDiscordBotStack extends Stack {
   /**
@@ -83,7 +81,7 @@ export class SampleDiscordBotStack extends Stack {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // Create the Lambdas next.
+    // Create the Commands Lambda.
     const discordCommandsLambda = new NodejsFunction(this, 'discord-commands-lambda', {
       runtime: Runtime.NODEJS_14_X,
       entry: path.join(__dirname, '../functions/DiscordCommands.ts'),
