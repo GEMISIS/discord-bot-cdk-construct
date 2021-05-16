@@ -1,6 +1,6 @@
 {
   "name": "discord-bot-cdk-construct",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A quick CDK Construct for creating a serverless Discord bot in AWS!",
   "author": {
     "name": "Gerald McAlister",
@@ -44,12 +44,12 @@
     }
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.91.0",
+    "@aws-cdk/assert": "1.104.0",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
-    "aws-cdk": "1.91.0",
+    "aws-cdk": "1.104.0",
     "eslint": "^7.21.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^26.4.2",
@@ -58,11 +58,11 @@
     "typescript": "~3.9.7"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-apigateway": "^1.91.0",
-    "@aws-cdk/aws-lambda": "^1.91.0",
-    "@aws-cdk/aws-lambda-nodejs": "^1.91.0",
-    "@aws-cdk/aws-secretsmanager": "^1.91.0",
-    "@aws-cdk/core": "1.91.0",
+    "@aws-cdk/aws-apigateway": "^1.104.0",
+    "@aws-cdk/aws-lambda": "^1.104.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.104.0",
+    "@aws-cdk/aws-secretsmanager": "^1.104.0",
+    "@aws-cdk/core": "1.104.0",
     "@types/aws-lambda": "^8.10.72",
     "esbuild": "^0.8.53",
     "source-map-support": "^0.5.16"
