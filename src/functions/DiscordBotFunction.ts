@@ -2,8 +2,8 @@ import {Context, Callback} from 'aws-lambda';
 import {DiscordEventRequest, DiscordEventResponse} from '../types';
 import {getDiscordSecrets} from './utils/DiscordSecrets';
 import {Lambda} from 'aws-sdk';
-import * as nacl from 'tweetnacl';
 import {commandLambdaARN} from './constants/EnvironmentProps';
+import {sign} from 'tweetnacl';
 
 const lambda = new Lambda();
 
@@ -18,25 +18,32 @@ export async function handler(event: DiscordEventRequest, context: Context,
     callback: Callback): Promise<DiscordEventResponse> {
   console.log(`Received event: ${JSON.stringify(event)}`);
 
-  if (event && await verifyEvent(event)) {
+  const verifyPromise = verifyEvent(event);
+
+  if (event) {
     switch (event.jsonBody.type) {
       case 1:
         // Return pongs for pings
-        return {
-          type: 1,
-        };
+        if (await verifyPromise) {
+          return {
+            type: 1,
+          };
+        }
+        break;
       case 2:
         // Actual input request
-        console.log('Invoking command lambda...');
-        await lambda.invoke({
+        const lambdaPromise = lambda.invoke({
           FunctionName: commandLambdaARN,
           Payload: JSON.stringify(event),
           InvocationType: 'Event',
         }).promise();
-        console.log('Returning temporary response...');
-        return {
-          type: 5,
-        };
+        if (await Promise.all([verifyPromise, lambdaPromise])) {
+          console.log('Returning temporary response...');
+          return {
+            type: 5,
+          };
+        }
+        break;
     }
   }
 
@@ -53,7 +60,7 @@ export async function verifyEvent(event: DiscordEventRequest): Promise<boolean> 
     console.log('Getting Discord secrets...');
     const discordSecrets = await getDiscordSecrets();
     console.log('Verifying incoming event...');
-    const isVerified = nacl.sign.detached.verify(
+    const isVerified = sign.detached.verify(
         Buffer.from(event.timestamp + JSON.stringify(event.jsonBody)),
         Buffer.from(event.signature, 'hex'),
         Buffer.from(discordSecrets?.publicKey ?? '', 'hex'),
