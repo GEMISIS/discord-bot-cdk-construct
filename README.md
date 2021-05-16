@@ -14,7 +14,10 @@ The bot has a fairly straightforward setup:
 
 The biggest confusion likely stems from the use of two Lambda functions instead of one. This is to ensure that the initial request can respond within Discord's 3 second time limit and return a proper response to the user.
 
-# Sample Commands Lambda Function
+# Sample Usage
+The usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) stack that will be used, and a "commands" script that actually handles responding. It's recommended that you are familiar with CDK first before diving into using this.
+
+## Handling Commands
 For handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:
 ```typescript
 import axios from 'axios';
@@ -55,6 +58,55 @@ async function sendResponse(response: DiscordResponseData,
   }
 }
 ```
+
+## Using the Construct
+To create a stack to make use of the above script, you can create a stack like so:
+
+```typescript
+import {Runtime} from '@aws-cdk/aws-lambda';
+import {NodejsFunction} from '@aws-cdk/aws-lambda-nodejs';
+import {Construct, Duration, Stack} from '@aws-cdk/core';
+import * as path from 'path';
+import {DiscordBotConstruct} from 'discord-bot-cdk-construct';
+
+/**
+ * Creates the APIs and code behind them for managing various
+ * things in the backend of the Oculus Start bot (user authorization, event
+ * management, etc.)
+ */
+export class SampleDiscordBotStack extends Stack {
+  /**
+   * The constructor for building the stack.
+   * @param {Construct} scope The Construct scope to create the stack in.
+   * @param {string} id The ID of the stack to use.
+   */
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    // Create the Lambdas next.
+    const discordCommandsLambda = new NodejsFunction(this, 'discord-commands-lambda', {
+      runtime: Runtime.NODEJS_14_X,
+      entry: path.join(__dirname, '../functions/DiscordCommands.ts'),
+      handler: 'handler',
+      timeout: Duration.seconds(60),
+    });
+
+    const discordBot = new DiscordBotConstruct(this, 'discord-bot-endpoint', {
+      commandsLambdaFunction: discordCommandsLambda,
+    });
+  }
+}
+```
+This can of course then be used in your CDK application like so:
+```typescript
+import { App } from '@aws-cdk/core';
+import { SampleDiscordBotStack } from './stacks/sample-discord-bot-stack';
+
+const app = new App();
+const startAPIStack = new SampleDiscordBotStack(app, 'SampleDiscordBotStack');
+```
+
+## Full Demo Project
 A full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).
 
 # Useful commands
