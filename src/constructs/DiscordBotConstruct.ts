@@ -32,7 +32,7 @@ export class DiscordBotConstruct extends Construct {
     super(scope, id);
 
     // Create our Secrets for our Discord APIs.
-    this.discordAPISecrets = new Secret(this, 'oculus-start-discord-api-key');
+    this.discordAPISecrets = new Secret(this, 'discord-bot-api-key');
 
     // Create the Lambda for handling Interactions from our Discord bot.
     const discordBotLambda = new NodejsFunction(this, 'discord-bot-lambda', {
