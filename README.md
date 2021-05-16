@@ -10,11 +10,11 @@ This is the architecture for how this project is laid out server-side. The tools
 
 The bot has a fairly straightforward setup:
 
-![The architecture diagram for the project.](diagrams/architecture.png?raw=true)
+![The architecture diagram for the project.](https://github.com/GEMISIS/discord-bot-cdk-construct/blob/main/diagrams/architecture.png?raw=true)
 
 The biggest confusion likely stems from the use of two Lambda functions instead of one. This is to ensure that the initial request can respond within Discord's 3 second time limit and return a proper response to the user.
 
-# Sample Command Lambda Function
+# Sample Commands Lambda Function
 For handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:
 ```typescript
 import axios from 'axios';
@@ -55,6 +55,7 @@ async function sendResponse(response: DiscordResponseData,
   }
 }
 ```
+A full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).
 
 # Useful commands
 
