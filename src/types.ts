@@ -9,6 +9,17 @@ export interface DiscordSecrets {
 }
 
 /**
+ * A server role assigned to a user.
+ */
+export interface DiscordRole {
+  id: string;
+  name: string;
+  color: number;
+  hoist: boolean;
+  mentionable: boolean;
+}
+
+/**
  * A Discord member and their properties.
  */
 export interface DiscordMember {
