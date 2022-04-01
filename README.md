@@ -63,11 +63,12 @@ async function sendResponse(response: DiscordResponseData,
 To create a stack to make use of the above script, you can create a stack like so:
 
 ```typescript
-import {Runtime} from '@aws-cdk/aws-lambda';
-import {NodejsFunction} from '@aws-cdk/aws-lambda-nodejs';
-import {Construct, Duration, Stack} from '@aws-cdk/core';
-import * as path from 'path';
+import {Duration, Stack} from 'aws-cdk-lib';
+import {Runtime} from 'aws-cdk-lib/aws-lambda';
+import {NodejsFunction} from 'aws-cdk-lib/aws-lambda-nodejs';
 import {DiscordBotConstruct} from 'discord-bot-cdk-construct';
+import {Construct} from 'constructs';
+import * as path from 'path';
 
 /**
  * Creates a sample Discord bot endpoint that can be used.
@@ -97,7 +98,7 @@ export class SampleDiscordBotStack extends Stack {
 ```
 This can of course then be used in your CDK application like so:
 ```typescript
-import { App } from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib';
 import { SampleDiscordBotStack } from './stacks/sample-discord-bot-stack';
 
 const app = new App();
@@ -114,6 +115,4 @@ A full example project utilzing this construct can be found [here](https://githu
  * `npm run test`    perform the jest unit tests
  * `npm run lint`       perform a lint check across the code
  * `npm run fix-lint`   fix any lint issues automatically where possible
- * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template

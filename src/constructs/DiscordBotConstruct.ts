@@ -1,9 +1,10 @@
-import {Function, Runtime} from '@aws-cdk/aws-lambda';
-import {Cors, LambdaIntegration, RequestValidator, RestApi} from '@aws-cdk/aws-apigateway';
-import {NodejsFunction} from '@aws-cdk/aws-lambda-nodejs';
-import {Construct, Duration} from '@aws-cdk/core';
+import {Duration} from 'aws-cdk-lib';
+import {Function, Runtime} from 'aws-cdk-lib/aws-lambda';
+import {Cors, LambdaIntegration, RequestValidator, RestApi} from 'aws-cdk-lib/aws-apigateway';
+import {NodejsFunction} from 'aws-cdk-lib/aws-lambda-nodejs';
+import {Secret} from 'aws-cdk-lib/aws-secretsmanager';
+import {Construct} from 'constructs';
 import * as path from 'path';
-import {Secret} from '@aws-cdk/aws-secretsmanager';
 
 /**
  * The properties required for the Discord Bot construct. Specifically
