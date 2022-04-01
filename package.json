@@ -10,8 +10,6 @@
   "keywords": [
     "cdk",
     "awscdk",
-    "cdk8s",
-    "cdktf",
     "discord",
     "bot",
     "generator",
