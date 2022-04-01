@@ -5,3 +5,10 @@
 .cdk.staging
 cdk.out
 coverage
+
+
+# Exclude jsii outdir
+dist
+
+# Include .jsii
+!.jsii

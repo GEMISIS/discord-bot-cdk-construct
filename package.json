@@ -1,8 +1,11 @@
 {
   "name": "discord-bot-cdk-construct",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A quick CDK Construct for creating a serverless Discord bot in AWS!",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/GEMISIS/discord-bot-cdk-construct.git"
+  },
   "author": {
     "name": "Gerald McAlister",
     "url": "https://geraldmcalister.com"
@@ -20,18 +23,20 @@
     "function",
     "service"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "files": [
-    "/dist"
+    "/build"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "jsii",
+    "build:watch": "jsii --watch",
+    "watch": "jsii --watch",
     "lint": "eslint src/*/*.ts",
     "fix-lint": "eslint src/*/*.ts --fix",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "package": "jsii-pacmak"
   },
   "jest": {
     "preset": "ts-jest",
@@ -63,26 +68,62 @@
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "aws-cdk-lib": "^2.19.0",
+    "constructs": "^10.0.102",
     "eslint": "^7.21.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^26.4.2",
+    "jsii": "^1.55.1",
+    "jsii-pacmak": "^1.55.1",
     "ts-jest": "^26.2.0",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
-  "peerDependencies": {
-    "@types/aws-lambda": "^8.10.72",
-    "aws-cdk-lib": "^2.19.0",
-    "esbuild": "^0.8.53",
-    "source-map-support": "^0.5.16"
-  },
   "dependencies": {
-    "aws-sdk": "^2.853.0",
+    "esbuild": "^0.8.53",
+    "aws-sdk": "^2.1105.0",
     "aws-sdk-mock": "^5.1.0",
     "axios": "^0.21.1",
-    "constructs": "^10.0.102",
     "requests": "^0.3.0",
-    "source-map-support": "^0.5.16",
     "tweetnacl": "^0.14.5"
+  },
+  "peerDependencies": {
+    "aws-cdk-lib": "^2.19.0",
+    "constructs": "^10.0.102"
+  },
+  "bundleDependencies": [
+    "esbuild",
+    "aws-sdk",
+    "aws-sdk-mock",
+    "axios",
+    "requests",
+    "tweetnacl"
+  ],
+  "stability": "experimental",
+  "jsii": {
+    "outdir": "dist",
+    "versionFormat": "full",
+    "targets": {
+      "java": {
+        "package": "com.gemisis.cdk.discord.core",
+        "maven": {
+          "groupId": "com.gemisis.cdk.discord",
+          "artifactId": "core"
+        }
+      },
+      "python": {
+        "distName": "gemisis-cdk-discord.core",
+        "module": "gemisis_cdk_discord.core"
+      },
+      "dotnet": {
+        "namespace": "gemisis.cdk.discord",
+        "packageId": "gemisis.cdk.discord"
+      }
+    },
+    "excludeTypescript": [
+      "test/**"
+    ],
+    "tsc": {
+      "outDir": "build/"
+    }
   }
 }

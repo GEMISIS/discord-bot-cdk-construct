@@ -1,5 +1,5 @@
 import {Context, Callback} from 'aws-lambda';
-import {DiscordEventRequest, DiscordEventResponse} from '../types';
+import {IDiscordEventRequest, IDiscordEventResponse} from '../types';
 import {getDiscordSecrets} from './utils/DiscordSecrets';
 import {Lambda} from 'aws-sdk';
 import {commandLambdaARN} from './constants/EnvironmentProps';
@@ -9,13 +9,13 @@ const lambda = new Lambda();
 
 /**
  * Handles incoming events from the Discord bot.
- * @param {DiscordEventRequest} event The incoming request to handle.
- * @param {Context} context The context this request was called with.
- * @param {Callback} callback A callback to handle the request.
- * @return {DiscordEventResponse} Returns a response to send back to Discord.
+ * @param {IDiscordEventRequest} event The incoming request to handle.
+ * @param {Context} _context The context this request was called with.
+ * @param {Callback} _callback A callback to handle the request.
+ * @return {IDiscordEventResponse} Returns a response to send back to Discord.
  */
-export async function handler(event: DiscordEventRequest, context: Context,
-    callback: Callback): Promise<DiscordEventResponse> {
+export async function handler(event: IDiscordEventRequest, _context: Context,
+    _callback: Callback): Promise<IDiscordEventResponse> {
   console.log(`Received event: ${JSON.stringify(event)}`);
 
   const verifyPromise = verifyEvent(event);
@@ -52,10 +52,10 @@ export async function handler(event: DiscordEventRequest, context: Context,
 
 /**
  * Verifies that an event coming from Discord is legitimate.
- * @param {DiscordEventRequest} event The event to verify from Discord.
+ * @param {IDiscordEventRequest} event The event to verify from Discord.
  * @return {boolean} Returns true if the event was verified, false otherwise.
  */
-export async function verifyEvent(event: DiscordEventRequest): Promise<boolean> {
+export async function verifyEvent(event: IDiscordEventRequest): Promise<boolean> {
   try {
     console.log('Getting Discord secrets...');
     const discordSecrets = await getDiscordSecrets();
