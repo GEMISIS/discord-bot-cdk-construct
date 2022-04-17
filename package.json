@@ -4,6 +4,7 @@
   "description": "A quick CDK Construct for creating a serverless Discord bot in AWS!",
   "license": "MIT",
   "repository": {
+    "type": "git",
     "url": "https://github.com/GEMISIS/discord-bot-cdk-construct.git"
   },
   "author": {
