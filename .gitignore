@@ -115,3 +115,4 @@ cdk.out
 # JSII ignores
 build
 tsconfig.json
+.jsii
