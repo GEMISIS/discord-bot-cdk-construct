@@ -10,7 +10,7 @@ import * as path from 'path';
  * The properties required for the Discord Bot construct. Specifically
  * requires the Lambda function where commands will be sent.
  */
-export interface DiscordBotConstructProps {
+export interface IDiscordBotConstructProps {
   commandsLambdaFunction: Function;
 }
 
@@ -27,9 +27,9 @@ export class DiscordBotConstruct extends Construct {
    * The constructor for building the stack.
    * @param {Construct} scope The Construct scope to create the Construct in.
    * @param {string} id The ID of the Construct to use.
-   * @param {DiscordBotConstructProps} props The properties to configure the Construct.
+   * @param {IDiscordBotConstructProps} props The properties to configure the Construct.
    */
-  constructor(scope: Construct, id: string, props: DiscordBotConstructProps) {
+  constructor(scope: Construct, id: string, props: IDiscordBotConstructProps) {
     super(scope, id);
 
     // Create our Secrets for our Discord APIs.

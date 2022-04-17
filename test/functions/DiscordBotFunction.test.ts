@@ -34,7 +34,6 @@ jest.mock('aws-sdk', () => {
 });
 
 import * as DiscordBot from '../../src/functions/DiscordBotFunction';
-import { DiscordEventRequest } from '../../src/types';
 
 describe('Test DiscordBot', () => {
   afterEach(() => {

@@ -2,7 +2,7 @@ const mockGetSecretValue = jest.fn().mockReturnValue({
   SecretString: JSON.stringify({
     appId: 'appId',
     publicKey: 'publicKey',
-    clientId: 'clientId',
+    applicationId: 'applicationId',
     authToken: 'authToken'
   })
 });
@@ -48,14 +48,14 @@ describe('Test DiscordSecrets', () => {
       SecretString: JSON.stringify({
         appId: 'appId',
         publicKey: 'publicKey',
-        clientId: 'clientId',
+        applicationId: 'applicationId',
         authToken: 'authToken'
       })
     });
     expect(await DiscordSecrets.getDiscordSecrets()).toEqual({
       appId: 'appId',
       publicKey: 'publicKey',
-      clientId: 'clientId',
+      applicationId: 'applicationId',
       authToken: 'authToken'
     });
     expect(mockGetSecretValuePromise.promise).toBeCalledTimes(3);
@@ -64,7 +64,7 @@ describe('Test DiscordSecrets', () => {
     expect(await DiscordSecrets.getDiscordSecrets()).toEqual({
       appId: 'appId',
       publicKey: 'publicKey',
-      clientId: 'clientId',
+      applicationId: 'applicationId',
       authToken: 'authToken'
     });
     expect(mockGetSecretValuePromise.promise).toBeCalledTimes(3);

@@ -20,42 +20,29 @@ The usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk
 ## Handling Commands
 For handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:
 ```typescript
-import axios from 'axios';
 import {Context, Callback} from 'aws-lambda';
-import { DiscordEventRequest, DiscordResponseData, getDiscordSecrets} from 'discord-bot-cdk-construct';
+import { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets, sendFollowupMessage } from 'discord-bot-cdk-construct';
 
-export async function handler(event: DiscordEventRequest, context: Context,
+export async function handler(event: IDiscordEventRequest, context: Context,
   callback: Callback): Promise<string> {
+
+  const discordSecret = await getDiscordSecrets();
+  const endpointInfo = {
+    authToken: discordSecret?.authToken,
+    applicationId: discordSecret?.applicationId
+  };
   const response = {
     tts: false,
     content: 'Hello world!',
     embeds: [],
-    allowed_mentions: [],
+    allowedMentions: [],
   };
-  if (event.jsonBody.token && await sendResponse(response, event.jsonBody.token)) {
+  if (event.jsonBody.token && await sendFollowupMessage(endpointInfo, event.jsonBody.token, response)) {
     console.log('Responded successfully!');
   } else {
     console.log('Failed to send response!');
   }
   return '200';
-}
-
-async function sendResponse(response: DiscordResponseData,
-  interactionToken: string): Promise<boolean> {
-  const discordSecret = await getDiscordSecrets();
-  const authConfig = {
-    headers: {
-      'Authorization': `Bot ${discordSecret?.authToken}`
-    }
-  };
-
-  try {
-    let url = `https://discord.com/api/v8/webhooks/${discordSecret?.clientId}/${interactionToken}`;
-    return (await axios.post(url, response, authConfig)).status == 200;
-  } catch (exception) {
-    console.log(`There was an error posting a response: ${exception}`);
-    return false;
-  }
 }
 ```
 
@@ -108,6 +95,16 @@ const startAPIStack = new SampleDiscordBotStack(app, 'SampleDiscordBotStack');
 ## Full Demo Project
 A full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).
 
+## Packaging with JSII
+
+In order to package everything with JSII, ensure you have the following installed:
+
+- Python3
+- Open JDK
+- Maven
+
+See [JSII's Prerequisites Documentation](https://aws.github.io/jsii/user-guides/lib-author/) for more information.
+
 # Useful commands
 
  * `npm run build`   compile typescript to js
@@ -115,4 +112,5 @@ A full example project utilzing this construct can be found [here](https://githu
  * `npm run test`    perform the jest unit tests
  * `npm run lint`       perform a lint check across the code
  * `npm run fix-lint`   fix any lint issues automatically where possible
- * `cdk diff`        compare deployed stack with current state
+ * `npm run package`   package all of the bindings for distribution
+ 
