@@ -20,42 +20,29 @@ The usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk
 ## Handling Commands
 For handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:
 ```typescript
-import axios from 'axios';
 import {Context, Callback} from 'aws-lambda';
-import { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets} from 'discord-bot-cdk-construct';
+import { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets, sendFollowupMessage } from 'discord-bot-cdk-construct';
 
 export async function handler(event: IDiscordEventRequest, context: Context,
   callback: Callback): Promise<string> {
+
+  const discordSecret = await getDiscordSecrets();
+  const endpointInfo = {
+    authToken: discordSecret?.authToken,
+    applicationId: discordSecret?.applicationId
+  };
   const response = {
     tts: false,
     content: 'Hello world!',
     embeds: [],
-    allowed_mentions: [],
+    allowedMentions: [],
   };
-  if (event.jsonBody.token && await sendResponse(response, event.jsonBody.token)) {
+  if (event.jsonBody.token && await sendFollowupMessage(endpointInfo, event.jsonBody.token, response)) {
     console.log('Responded successfully!');
   } else {
     console.log('Failed to send response!');
   }
   return '200';
-}
-
-async function sendResponse(response: IDiscordResponseData,
-  interactionToken: string): Promise<boolean> {
-  const discordSecret = await getDiscordSecrets();
-  const authConfig = {
-    headers: {
-      'Authorization': `Bot ${discordSecret?.authToken}`
-    }
-  };
-
-  try {
-    let url = `https://discord.com/api/v8/webhooks/${discordSecret?.clientId}/${interactionToken}`;
-    return (await axios.post(url, response, authConfig)).status == 200;
-  } catch (exception) {
-    console.log(`There was an error posting a response: ${exception}`);
-    return false;
-  }
 }
 ```
 

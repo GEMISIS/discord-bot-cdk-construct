@@ -1,5 +1,5 @@
 import {Context, Callback} from 'aws-lambda';
-import {IDiscordEventRequest, IDiscordEventResponse} from '../types';
+import {IDiscordEventRequest} from '../types';
 import {getDiscordSecrets} from './utils/DiscordSecrets';
 import {Lambda} from 'aws-sdk';
 import {commandLambdaARN} from './constants/EnvironmentProps';
@@ -15,7 +15,7 @@ const lambda = new Lambda();
  * @return {IDiscordEventResponse} Returns a response to send back to Discord.
  */
 export async function handler(event: IDiscordEventRequest, _context: Context,
-    _callback: Callback): Promise<IDiscordEventResponse> {
+    _callback: Callback) {
   console.log(`Received event: ${JSON.stringify(event)}`);
 
   const verifyPromise = verifyEvent(event);
@@ -31,14 +31,17 @@ export async function handler(event: IDiscordEventRequest, _context: Context,
         }
         break;
       case 2:
-        // Actual input request
+        // Invoke the lambda to respond to the deferred message.
         const lambdaPromise = lambda.invoke({
           FunctionName: commandLambdaARN,
           Payload: JSON.stringify(event),
           InvocationType: 'Event',
         }).promise();
+
+        // Call of the promises and ACK the interaction.
+        // Note that all responses are deferred to meet Discord's 3 second
+        // response time requirement.
         if (await Promise.all([verifyPromise, lambdaPromise])) {
-          console.log('Returning temporary response...');
           return {
             type: 5,
           };
@@ -57,15 +60,12 @@ export async function handler(event: IDiscordEventRequest, _context: Context,
  */
 export async function verifyEvent(event: IDiscordEventRequest): Promise<boolean> {
   try {
-    console.log('Getting Discord secrets...');
     const discordSecrets = await getDiscordSecrets();
-    console.log('Verifying incoming event...');
     const isVerified = sign.detached.verify(
         Buffer.from(event.timestamp + JSON.stringify(event.jsonBody)),
         Buffer.from(event.signature, 'hex'),
         Buffer.from(discordSecrets?.publicKey ?? '', 'hex'),
     );
-    console.log('Returning verification results...');
     return isVerified;
   } catch (exception) {
     console.log(exception);

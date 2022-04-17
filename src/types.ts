@@ -3,7 +3,7 @@
  */
 export interface IDiscordSecrets {
   publicKey: string;
-  clientId: string;
+  applicationId: string;
   authToken: string;
   serverId: string;
 }
@@ -76,11 +76,14 @@ export interface IDiscordRequestDataOption {
 }
 
 /**
- * The response to send back for a Discord request.
+ * The information for the endpoint to use when sending a response.
+ * 
+ * Default version for the API version is 8 when not specified.
  */
-export interface IDiscordEventResponse {
-  type: number;
-  data?: IDiscordResponseData;
+export interface IDiscordEndpointInfo {
+  apiVersion?: string;
+  authToken: string;
+  applicationId: string;
 }
 
 /**
@@ -90,9 +93,6 @@ export interface IDiscordResponseData {
   tts: boolean;
   content: string;
   embeds: any[];
-  /* eslint-disable camelcase */
-  // TODO #8: Uncomment once there is a workaround for camelcase with JSII.
-  // allowed_mentions: string[];
-  /* eslint-enable camelcase */
+  allowedMentions: string[];
 }
 

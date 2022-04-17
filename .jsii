@@ -7,9 +7,10 @@
     "url": "https://geraldmcalister.com"
   },
   "bundled": {
+    "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1105.0",
     "aws-sdk-mock": "^5.1.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "esbuild": "^0.8.53",
     "requests": "^0.3.0",
     "tweetnacl": "^0.14.5"
@@ -2966,7 +2967,7 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/GEMISIS/discord-bot-cdk-construct.git",
-  "jsiiVersion": "1.55.1 (build 07d2d90)",
+  "jsiiVersion": "1.56.0 (build 55e7d15)",
   "keywords": [
     "cdk",
     "awscdk",
@@ -2991,7 +2992,7 @@
   },
   "name": "discord-bot-cdk-construct",
   "readme": {
-    "markdown": "# discord-bot-cdk-construct\n\n![Version Badge](https://img.shields.io/github/package-json/v/GEMISIS/discord-bot-cdk-construct?color=blue&logo=Discord) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)\n\nA CDK Construct for creating a serverless Discord bot. All you need to do is supply your code to handle the commands!\n\n# Architecture Overview\nThis is the architecture for how this project is laid out server-side. The tools used to create these diagrams are:\n- [Architecture Diagrams](https://app.diagrams.net)\n\nThe bot has a fairly straightforward setup:\n\n![The architecture diagram for the project.](https://github.com/GEMISIS/discord-bot-cdk-construct/blob/main/diagrams/architecture.png?raw=true)\n\nThe biggest confusion likely stems from the use of two Lambda functions instead of one. This is to ensure that the initial request can respond within Discord's 3 second time limit and return a proper response to the user.\n\n# Sample Usage\nThe usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) stack that will be used, and a \"commands\" script that actually handles responding. It's recommended that you are familiar with CDK first before diving into using this.\n\n## Handling Commands\nFor handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:\n```typescript\nimport axios from 'axios';\nimport {Context, Callback} from 'aws-lambda';\nimport { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets} from 'discord-bot-cdk-construct';\n\nexport async function handler(event: IDiscordEventRequest, context: Context,\n  callback: Callback): Promise<string> {\n  const response = {\n    tts: false,\n    content: 'Hello world!',\n    embeds: [],\n    allowed_mentions: [],\n  };\n  if (event.jsonBody.token && await sendResponse(response, event.jsonBody.token)) {\n    console.log('Responded successfully!');\n  } else {\n    console.log('Failed to send response!');\n  }\n  return '200';\n}\n\nasync function sendResponse(response: IDiscordResponseData,\n  interactionToken: string): Promise<boolean> {\n  const discordSecret = await getDiscordSecrets();\n  const authConfig = {\n    headers: {\n      'Authorization': `Bot ${discordSecret?.authToken}`\n    }\n  };\n\n  try {\n    let url = `https://discord.com/api/v8/webhooks/${discordSecret?.clientId}/${interactionToken}`;\n    return (await axios.post(url, response, authConfig)).status == 200;\n  } catch (exception) {\n    console.log(`There was an error posting a response: ${exception}`);\n    return false;\n  }\n}\n```\n\n## Using the Construct\nTo create a stack to make use of the above script, you can create a stack like so:\n\n```typescript\nimport {Duration, Stack} from 'aws-cdk-lib';\nimport {Runtime} from 'aws-cdk-lib/aws-lambda';\nimport {NodejsFunction} from 'aws-cdk-lib/aws-lambda-nodejs';\nimport {DiscordBotConstruct} from 'discord-bot-cdk-construct';\nimport {Construct} from 'constructs';\nimport * as path from 'path';\n\n/**\n * Creates a sample Discord bot endpoint that can be used.\n */\nexport class SampleDiscordBotStack extends Stack {\n  /**\n   * The constructor for building the stack.\n   * @param {Construct} scope The Construct scope to create the stack in.\n   * @param {string} id The ID of the stack to use.\n   */\n  constructor(scope: Construct, id: string) {\n    super(scope, id);\n\n    // Create the Commands Lambda.\n    const discordCommandsLambda = new NodejsFunction(this, 'discord-commands-lambda', {\n      runtime: Runtime.NODEJS_14_X,\n      entry: path.join(__dirname, '../functions/DiscordCommands.ts'),\n      handler: 'handler',\n      timeout: Duration.seconds(60),\n    });\n\n    const discordBot = new DiscordBotConstruct(this, 'discord-bot-endpoint', {\n      commandsLambdaFunction: discordCommandsLambda,\n    });\n  }\n}\n```\nThis can of course then be used in your CDK application like so:\n```typescript\nimport { App } from 'aws-cdk-lib';\nimport { SampleDiscordBotStack } from './stacks/sample-discord-bot-stack';\n\nconst app = new App();\nconst startAPIStack = new SampleDiscordBotStack(app, 'SampleDiscordBotStack');\n```\n\n## Full Demo Project\nA full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).\n\n# Useful commands\n\n * `npm run build`   compile typescript to js\n * `npm run watch`   watch for changes and compile\n * `npm run test`    perform the jest unit tests\n * `npm run lint`       perform a lint check across the code\n * `npm run fix-lint`   fix any lint issues automatically where possible\n * `cdk diff`        compare deployed stack with current state\n"
+    "markdown": "# discord-bot-cdk-construct\n\n![Version Badge](https://img.shields.io/github/package-json/v/GEMISIS/discord-bot-cdk-construct?color=blue&logo=Discord) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)\n\nA CDK Construct for creating a serverless Discord bot. All you need to do is supply your code to handle the commands!\n\n# Architecture Overview\nThis is the architecture for how this project is laid out server-side. The tools used to create these diagrams are:\n- [Architecture Diagrams](https://app.diagrams.net)\n\nThe bot has a fairly straightforward setup:\n\n![The architecture diagram for the project.](https://github.com/GEMISIS/discord-bot-cdk-construct/blob/main/diagrams/architecture.png?raw=true)\n\nThe biggest confusion likely stems from the use of two Lambda functions instead of one. This is to ensure that the initial request can respond within Discord's 3 second time limit and return a proper response to the user.\n\n# Sample Usage\nThe usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) stack that will be used, and a \"commands\" script that actually handles responding. It's recommended that you are familiar with CDK first before diving into using this.\n\n## Handling Commands\nFor handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:\n```typescript\nimport {Context, Callback} from 'aws-lambda';\nimport { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets, sendFollowupMessage } from 'discord-bot-cdk-construct';\n\nexport async function handler(event: IDiscordEventRequest, context: Context,\n  callback: Callback): Promise<string> {\n\n  const discordSecret = await getDiscordSecrets();\n  const endpointInfo = {\n    authToken: discordSecret?.authToken,\n    applicationId: discordSecret?.applicationId\n  };\n  const response = {\n    tts: false,\n    content: 'Hello world!',\n    embeds: [],\n    allowedMentions: [],\n  };\n  if (event.jsonBody.token && await sendFollowupMessage(endpointInfo, event.jsonBody.token, response)) {\n    console.log('Responded successfully!');\n  } else {\n    console.log('Failed to send response!');\n  }\n  return '200';\n}\n```\n\n## Using the Construct\nTo create a stack to make use of the above script, you can create a stack like so:\n\n```typescript\nimport {Duration, Stack} from 'aws-cdk-lib';\nimport {Runtime} from 'aws-cdk-lib/aws-lambda';\nimport {NodejsFunction} from 'aws-cdk-lib/aws-lambda-nodejs';\nimport {DiscordBotConstruct} from 'discord-bot-cdk-construct';\nimport {Construct} from 'constructs';\nimport * as path from 'path';\n\n/**\n * Creates a sample Discord bot endpoint that can be used.\n */\nexport class SampleDiscordBotStack extends Stack {\n  /**\n   * The constructor for building the stack.\n   * @param {Construct} scope The Construct scope to create the stack in.\n   * @param {string} id The ID of the stack to use.\n   */\n  constructor(scope: Construct, id: string) {\n    super(scope, id);\n\n    // Create the Commands Lambda.\n    const discordCommandsLambda = new NodejsFunction(this, 'discord-commands-lambda', {\n      runtime: Runtime.NODEJS_14_X,\n      entry: path.join(__dirname, '../functions/DiscordCommands.ts'),\n      handler: 'handler',\n      timeout: Duration.seconds(60),\n    });\n\n    const discordBot = new DiscordBotConstruct(this, 'discord-bot-endpoint', {\n      commandsLambdaFunction: discordCommandsLambda,\n    });\n  }\n}\n```\nThis can of course then be used in your CDK application like so:\n```typescript\nimport { App } from 'aws-cdk-lib';\nimport { SampleDiscordBotStack } from './stacks/sample-discord-bot-stack';\n\nconst app = new App();\nconst startAPIStack = new SampleDiscordBotStack(app, 'SampleDiscordBotStack');\n```\n\n## Full Demo Project\nA full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).\n\n## Packaging with JSII\n\nIn order to package everything with JSII, ensure you have the following installed:\n\n- Python3\n- Open JDK\n- Maven\n\nSee [JSII's Prerequisites Documentation](https://aws.github.io/jsii/user-guides/lib-author/) for more information.\n\n# Useful commands\n\n * `npm run build`   compile typescript to js\n * `npm run watch`   watch for changes and compile\n * `npm run test`    perform the jest unit tests\n * `npm run lint`       perform a lint check across the code\n * `npm run fix-lint`   fix any lint issues automatically where possible\n * `npm run package`   package all of the bindings for distribution\n\n"
   },
   "repository": {
     "type": "git",
@@ -3123,6 +3124,67 @@
       ],
       "symbolId": "src/constructs/DiscordBotConstruct:IDiscordBotConstructProps"
     },
+    "discord-bot-cdk-construct.IDiscordEndpointInfo": {
+      "assembly": "discord-bot-cdk-construct",
+      "docs": {
+        "remarks": "Default version for the API version is 8 when not specified.",
+        "stability": "experimental",
+        "summary": "The information for the endpoint to use when sending a response."
+      },
+      "fqn": "discord-bot-cdk-construct.IDiscordEndpointInfo",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "src/types.ts",
+        "line": 83
+      },
+      "name": "IDiscordEndpointInfo",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "src/types.ts",
+            "line": 86
+          },
+          "name": "applicationId",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "src/types.ts",
+            "line": 85
+          },
+          "name": "authToken",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "src/types.ts",
+            "line": 84
+          },
+          "name": "apiVersion",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ],
+      "symbolId": "src/types:IDiscordEndpointInfo"
+    },
     "discord-bot-cdk-construct.IDiscordEventRequest": {
       "assembly": "discord-bot-cdk-construct",
       "docs": {
@@ -3181,52 +3243,6 @@
         }
       ],
       "symbolId": "src/types:IDiscordEventRequest"
-    },
-    "discord-bot-cdk-construct.IDiscordEventResponse": {
-      "assembly": "discord-bot-cdk-construct",
-      "docs": {
-        "stability": "experimental",
-        "summary": "The response to send back for a Discord request."
-      },
-      "fqn": "discord-bot-cdk-construct.IDiscordEventResponse",
-      "kind": "interface",
-      "locationInModule": {
-        "filename": "src/types.ts",
-        "line": 81
-      },
-      "name": "IDiscordEventResponse",
-      "properties": [
-        {
-          "abstract": true,
-          "docs": {
-            "stability": "experimental"
-          },
-          "locationInModule": {
-            "filename": "src/types.ts",
-            "line": 82
-          },
-          "name": "type",
-          "type": {
-            "primitive": "number"
-          }
-        },
-        {
-          "abstract": true,
-          "docs": {
-            "stability": "experimental"
-          },
-          "locationInModule": {
-            "filename": "src/types.ts",
-            "line": 83
-          },
-          "name": "data",
-          "optional": true,
-          "type": {
-            "fqn": "discord-bot-cdk-construct.IDiscordResponseData"
-          }
-        }
-      ],
-      "symbolId": "src/types:IDiscordEventResponse"
     },
     "discord-bot-cdk-construct.IDiscordJsonBody": {
       "assembly": "discord-bot-cdk-construct",
@@ -3518,7 +3534,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "src/types.ts",
-        "line": 89
+        "line": 92
       },
       "name": "IDiscordResponseData",
       "properties": [
@@ -3529,7 +3545,26 @@
           },
           "locationInModule": {
             "filename": "src/types.ts",
-            "line": 91
+            "line": 96
+          },
+          "name": "allowedMentions",
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "src/types.ts",
+            "line": 94
           },
           "name": "content",
           "type": {
@@ -3543,7 +3578,7 @@
           },
           "locationInModule": {
             "filename": "src/types.ts",
-            "line": 92
+            "line": 95
           },
           "name": "embeds",
           "type": {
@@ -3562,7 +3597,7 @@
           },
           "locationInModule": {
             "filename": "src/types.ts",
-            "line": 90
+            "line": 93
           },
           "name": "tts",
           "type": {
@@ -3680,9 +3715,9 @@
           },
           "locationInModule": {
             "filename": "src/types.ts",
-            "line": 7
+            "line": 6
           },
-          "name": "authToken",
+          "name": "applicationId",
           "type": {
             "primitive": "string"
           }
@@ -3694,9 +3729,9 @@
           },
           "locationInModule": {
             "filename": "src/types.ts",
-            "line": 6
+            "line": 7
           },
-          "name": "clientId",
+          "name": "authToken",
           "type": {
             "primitive": "string"
           }
@@ -3793,5 +3828,5 @@
     }
   },
   "version": "0.3.0",
-  "fingerprint": "KX0BEMkH87YOl0/YGokh4rIh31QapVxWW5AnsmWJ/RE="
+  "fingerprint": "YfhDbv3dJCsw8us+9+v3B2BsK+XTnHU9ST1c/uLjJvs="
 }
