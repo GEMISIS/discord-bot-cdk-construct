@@ -1,6 +1,6 @@
 {
   "name": "discord-bot-cdk-construct",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A quick CDK Construct for creating a serverless Discord bot in AWS!",
   "license": "MIT",
   "repository": {
@@ -27,7 +27,9 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
-    "/build"
+    "/build",
+    "/dist",
+    ".jsii"
   ],
   "scripts": {
     "build": "jsii",
