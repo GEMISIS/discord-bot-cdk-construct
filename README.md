@@ -5,7 +5,9 @@
 A CDK Construct for creating a serverless Discord bot. All you need to do is supply your code to handle the commands!
 
 # Architecture Overview
+
 This is the architecture for how this project is laid out server-side. The tools used to create these diagrams are:
+
 - [Architecture Diagrams](https://app.diagrams.net)
 
 The bot has a fairly straightforward setup:
@@ -15,10 +17,13 @@ The bot has a fairly straightforward setup:
 The biggest confusion likely stems from the use of two Lambda functions instead of one. This is to ensure that the initial request can respond within Discord's 3 second time limit and return a proper response to the user.
 
 # Sample Usage
+
 The usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) stack that will be used, and a "commands" script that actually handles responding. It's recommended that you are familiar with CDK first before diving into using this.
 
 ## Handling Commands
+
 For handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:
+
 ```typescript
 import {Context, Callback} from 'aws-lambda';
 import { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets, sendFollowupMessage } from 'discord-bot-cdk-construct';
@@ -47,6 +52,7 @@ export async function handler(event: IDiscordEventRequest, context: Context,
 ```
 
 ## Using the Construct
+
 To create a stack to make use of the above script, you can create a stack like so:
 
 ```typescript
@@ -83,7 +89,9 @@ export class SampleDiscordBotStack extends Stack {
   }
 }
 ```
+
 This can of course then be used in your CDK application like so:
+
 ```typescript
 import { App } from 'aws-cdk-lib';
 import { SampleDiscordBotStack } from './stacks/sample-discord-bot-stack';
@@ -93,6 +101,7 @@ const startAPIStack = new SampleDiscordBotStack(app, 'SampleDiscordBotStack');
 ```
 
 ## Full Demo Project
+
 A full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).
 
 ## Packaging with JSII
@@ -107,10 +116,9 @@ See [JSII's Prerequisites Documentation](https://aws.github.io/jsii/user-guides/
 
 # Useful commands
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `npm run lint`       perform a lint check across the code
- * `npm run fix-lint`   fix any lint issues automatically where possible
- * `npm run package`   package all of the bindings for distribution
- 
+- `npm run build`   compile typescript to js
+- `npm run watch`   watch for changes and compile
+- `npm run test`    perform the jest unit tests
+- `npm run lint`       perform a lint check across the code
+- `npm run fix-lint`   fix any lint issues automatically where possible
+- `npm run package`   package all of the bindings for distribution

@@ -2,10 +2,15 @@
  * The available secrets for our Discord server.
  */
 export interface IDiscordSecrets {
+  /** The bot application's public key */
   publicKey: string;
+  /** The bot application's ID */
   applicationId: string;
+  /** The bot application's authorization
+   * token (also known as the client secret) */
   authToken: string;
-  serverId: string;
+  /** The bot's token (specific to the bot within the application) */
+  botToken: string;
 }
 
 /**
@@ -64,7 +69,10 @@ export interface IDiscordJsonBody {
 export interface IDiscordRequestData {
   id: string;
   name: string;
+  type: number;
   options?: IDiscordRequestDataOption[];
+  guildId?: string;
+  targetId?: string;
 }
 
 /**
@@ -72,17 +80,20 @@ export interface IDiscordRequestData {
  */
 export interface IDiscordRequestDataOption {
   name: string;
-  value: string;
+  type: number;
+  value?: string | number | boolean;
+  options?: IDiscordRequestDataOption[];
 }
 
 /**
  * The information for the endpoint to use when sending a response.
- * 
- * Default version for the API version is 8 when not specified.
  */
 export interface IDiscordEndpointInfo {
+  /** The API version to use for the endpoint (10 is the default when not specified) */
   apiVersion?: string;
-  authToken: string;
+  /** The bot token to use when accessing this endpoint */
+  botToken: string;
+  /** The application ID for this bot */
   applicationId: string;
 }
 

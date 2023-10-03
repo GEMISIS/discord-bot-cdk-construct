@@ -1,11 +1,11 @@
-import { Context, Callback } from 'aws-lambda';
+import {Context, Callback} from 'aws-lambda';
 
 const mockDiscordSecrets = jest.fn().mockReturnValue(Promise.resolve(undefined));
 
 jest.mock('../../src/functions/utils/DiscordSecrets', () => {
   return {
-    getDiscordSecrets: mockDiscordSecrets
-  }
+    getDiscordSecrets: mockDiscordSecrets,
+  };
 });
 
 const mockVerify = jest.fn();
@@ -14,26 +14,27 @@ jest.mock('tweetnacl', () => {
   return {
     sign: {
       detached: {
-        verify: mockVerify
-      }
-    }
-  }
+        verify: mockVerify,
+      },
+    },
+  };
 });
 
 const mockInvoke = {
-  promise: jest.fn()
+  promise: jest.fn(),
 };
 const mockLambda = {
-  invoke: jest.fn(() => mockInvoke)
+  invoke: jest.fn(() => mockInvoke),
 };
 
 jest.mock('aws-sdk', () => {
   return {
-    Lambda: jest.fn(() => mockLambda)
+    Lambda: jest.fn(() => mockLambda),
   };
 });
 
 import * as DiscordBot from '../../src/functions/DiscordBotFunction';
+import {IDiscordEventRequest, IDiscordJsonBody} from '../../src/types';
 
 describe('Test DiscordBot', () => {
   afterEach(() => {
@@ -46,7 +47,7 @@ describe('Test DiscordBot', () => {
       appId: 'appId',
       publicKey: 'publicKey',
       clientId: 'clientId',
-      authToken: 'authToken'
+      authToken: 'authToken',
     }));
     mockVerify.mockReturnValueOnce(true);
     const result = await DiscordBot.handler({
@@ -54,12 +55,12 @@ describe('Test DiscordBot', () => {
       signature: '',
       jsonBody: {
         type: 2,
-        version: 1
-      }
-    }, (null as unknown) as Context, (null as unknown) as Callback);
+        version: 1,
+      } as IDiscordJsonBody,
+    } as IDiscordEventRequest, (null as unknown) as Context, (null as unknown) as Callback);
 
     expect(result).toEqual({
-      type: 5
+      type: 5,
     });
   });
 
@@ -68,7 +69,7 @@ describe('Test DiscordBot', () => {
       appId: 'appId',
       publicKey: 'publicKey',
       clientId: 'clientId',
-      authToken: 'authToken'
+      authToken: 'authToken',
     }));
     mockVerify.mockReturnValueOnce(true);
     const result = await DiscordBot.handler({
@@ -76,12 +77,12 @@ describe('Test DiscordBot', () => {
       signature: '',
       jsonBody: {
         type: 1,
-        version: 1
-      }
+        version: 1,
+      },
     }, (null as unknown) as Context, (null as unknown) as Callback);
 
     expect(result).toEqual({
-      type: 1
+      type: 1,
     });
   });
 
@@ -90,7 +91,7 @@ describe('Test DiscordBot', () => {
       appId: 'appId',
       publicKey: 'publicKey',
       clientId: 'clientId',
-      authToken: 'authToken'
+      authToken: 'authToken',
     }));
     mockVerify.mockReturnValueOnce(false);
     expect(async () => {
@@ -99,8 +100,8 @@ describe('Test DiscordBot', () => {
         signature: '',
         jsonBody: {
           type: 255,
-          version: 1
-        }
+          version: 1,
+        },
       }, (null as unknown) as Context, (null as unknown) as Callback);
     }).rejects.toThrow(Error);
   });
@@ -110,7 +111,7 @@ describe('Test DiscordBot', () => {
       appId: 'appId',
       publicKey: 'publicKey',
       clientId: 'clientId',
-      authToken: 'authToken'
+      authToken: 'authToken',
     }));
     mockVerify.mockReturnValueOnce(true);
     const result = await DiscordBot.verifyEvent({
@@ -118,8 +119,8 @@ describe('Test DiscordBot', () => {
       signature: '',
       jsonBody: {
         type: 255,
-        version: 1
-      }
+        version: 1,
+      },
     });
 
     expect(mockDiscordSecrets).toBeCalledTimes(1);
@@ -132,7 +133,7 @@ describe('Test DiscordBot', () => {
       appId: 'appId',
       publicKey: 'publicKey',
       clientId: 'clientId',
-      authToken: 'authToken'
+      authToken: 'authToken',
     }));
     mockVerify.mockReturnValueOnce(false);
     const result = await DiscordBot.verifyEvent({
@@ -140,8 +141,8 @@ describe('Test DiscordBot', () => {
       signature: '',
       jsonBody: {
         type: 255,
-        version: 1
-      }
+        version: 1,
+      },
     });
 
     expect(mockDiscordSecrets).toBeCalledTimes(1);
@@ -158,8 +159,8 @@ describe('Test DiscordBot', () => {
       signature: '',
       jsonBody: {
         type: 255,
-        version: 1
-      }
+        version: 1,
+      },
     });
 
     expect(mockDiscordSecrets).toBeCalledTimes(1);
@@ -172,19 +173,19 @@ describe('Test DiscordBot', () => {
       appId: 'appId',
       publicKey: 'publicKey',
       clientId: 'clientId',
-      authToken: 'authToken'
+      authToken: 'authToken',
     }));
     mockVerify.mockImplementationOnce(() => {
       throw new Error('Handle errors');
-    })
+    });
 
     const result = await DiscordBot.verifyEvent({
       timestamp: '',
       signature: '',
       jsonBody: {
         type: 255,
-        version: 1
-      }
+        version: 1,
+      },
     });
 
     expect(mockDiscordSecrets).toBeCalledTimes(1);

@@ -34,7 +34,12 @@ export async function handler(event: IDiscordEventRequest, _context: Context,
         // Invoke the lambda to respond to the deferred message.
         const lambdaPromise = lambda.invoke({
           FunctionName: commandLambdaARN,
-          Payload: JSON.stringify(event),
+          Payload: JSON.stringify({
+            ...event,
+            // Hacky workaround due to https://github.com/aws/jsii/issues/3468
+            guildId: (event.jsonBody.data as any)?['guild_id'] : undefined,
+            targetId: (event.jsonBody.data as any)?['target_id'] : undefined,
+          }),
           InvocationType: 'Event',
         }).promise();
 

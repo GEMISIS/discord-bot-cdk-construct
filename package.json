@@ -1,6 +1,6 @@
 {
   "name": "discord-bot-cdk-construct",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A quick CDK Construct for creating a serverless Discord bot in AWS!",
   "license": "MIT",
   "repository": {
@@ -71,12 +71,12 @@
     "@types/node": "10.17.27",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
-    "aws-cdk-lib": "^2.19.0",
-    "constructs": "^10.0.102",
+    "aws-cdk-lib": "2.20.0",
+    "constructs": "10.0.117",
     "eslint": "^7.21.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^26.4.2",
-    "jsii": "^1.55.1",
+    "jsii": "^1.89.0",
     "jsii-pacmak": "^1.55.1",
     "ts-jest": "^26.2.0",
     "ts-node": "^9.0.0",
@@ -92,8 +92,8 @@
     "tweetnacl": "^0.14.5"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.19.0",
-    "constructs": "^10.0.102"
+    "aws-cdk-lib": "2.20.0",
+    "constructs": "10.0.117"
   },
   "bundleDependencies": [
     "aws-lambda",
