@@ -16,10 +16,88 @@
     "tweetnacl": "^0.14.5"
   },
   "dependencies": {
-    "aws-cdk-lib": "2.20.0",
+    "aws-cdk-lib": "2.99.1",
     "constructs": "10.0.117"
   },
   "dependencyClosure": {
+    "@aws-cdk/asset-awscli-v1": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.CDK.Asset.AwsCliV1",
+          "packageId": "Amazon.CDK.Asset.AwsCliV1"
+        },
+        "go": {
+          "moduleName": "github.com/cdklabs/awscdk-asset-awscli-go",
+          "packageName": "awscliv1"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-asset-awscli-v1",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cdk.asset.awscli.v1"
+        },
+        "js": {
+          "npm": "@aws-cdk/asset-awscli-v1"
+        },
+        "python": {
+          "distName": "aws-cdk.asset-awscli-v1",
+          "module": "aws_cdk.asset_awscli_v1"
+        }
+      }
+    },
+    "@aws-cdk/asset-kubectl-v20": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.CDK.Asset.KubectlV20",
+          "packageId": "Amazon.CDK.Asset.KubectlV20"
+        },
+        "go": {
+          "moduleName": "github.com/cdklabs/awscdk-asset-kubectl-go",
+          "packageName": "kubectlv20"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-asset-kubectl-v20",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cdk.asset.kubectl.v20"
+        },
+        "js": {
+          "npm": "@aws-cdk/asset-kubectl-v20"
+        },
+        "python": {
+          "distName": "aws-cdk.asset-kubectl-v20",
+          "module": "aws_cdk.asset_kubectl_v20"
+        }
+      }
+    },
+    "@aws-cdk/asset-node-proxy-agent-v6": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Amazon.CDK.Asset.NodeProxyAgentV6",
+          "packageId": "Amazon.CDK.Asset.NodeProxyAgentV6"
+        },
+        "go": {
+          "moduleName": "github.com/cdklabs/awscdk-asset-node-proxy-agent-go",
+          "packageName": "nodeproxyagentv6"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-asset-node-proxy-agent-v6",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cdk.asset.node.proxy.agent.v6"
+        },
+        "js": {
+          "npm": "@aws-cdk/asset-node-proxy-agent-v6"
+        },
+        "python": {
+          "distName": "aws-cdk.asset-node-proxy-agent-v6",
+          "module": "aws_cdk.asset_node_proxy_agent_v6"
+        }
+      }
+    },
     "aws-cdk-lib": {
       "submodules": {
         "aws-cdk-lib.alexa_ask": {
@@ -373,6 +451,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_backupgateway": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.BackupGateway"
+            },
+            "java": {
+              "package": "services.backupgateway"
+            },
+            "python": {
+              "module": "aws_cdk.aws_backupgateway"
+            }
+          }
+        },
         "aws-cdk-lib.aws_batch": {
           "targets": {
             "dotnet": {
@@ -461,6 +552,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_chatbot"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_cleanrooms": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.CleanRooms"
+            },
+            "java": {
+              "package": "services.cleanrooms"
+            },
+            "python": {
+              "module": "aws_cdk.aws_cleanrooms"
             }
           }
         },
@@ -712,6 +816,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_comprehend": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Comprehend"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.comprehend"
+            },
+            "python": {
+              "module": "aws_cdk.aws_comprehend"
+            }
+          }
+        },
         "aws-cdk-lib.aws_config": {
           "targets": {
             "dotnet": {
@@ -735,6 +852,32 @@
             },
             "python": {
               "module": "aws_cdk.aws_connect"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_connectcampaigns": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.ConnectCampaigns"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.connectcampaigns"
+            },
+            "python": {
+              "module": "aws_cdk.aws_connectcampaigns"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_controltower": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.ControlTower"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.controltower"
+            },
+            "python": {
+              "module": "aws_cdk.aws_controltower"
             }
           }
         },
@@ -829,6 +972,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_devicefarm": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.DeviceFarm"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.devicefarm"
+            },
+            "python": {
+              "module": "aws_cdk.aws_devicefarm"
+            }
+          }
+        },
         "aws-cdk-lib.aws_devopsguru": {
           "targets": {
             "dotnet": {
@@ -891,6 +1047,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_docdb"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_docdbelastic": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.DocDBElastic"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.docdbelastic"
+            },
+            "python": {
+              "module": "aws_cdk.aws_docdbelastic"
             }
           }
         },
@@ -1115,6 +1284,32 @@
             }
           }
         },
+        "aws-cdk-lib.aws_emrserverless": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.EMRServerless"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.emrserverless"
+            },
+            "python": {
+              "module": "aws_cdk.aws_emrserverless"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_entityresolution": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.EntityResolution"
+            },
+            "java": {
+              "package": "services.entityresolution"
+            },
+            "python": {
+              "module": "aws_cdk.aws_entityresolution"
+            }
+          }
+        },
         "aws-cdk-lib.aws_events": {
           "targets": {
             "dotnet": {
@@ -1297,6 +1492,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_grafana": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Grafana"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.grafana"
+            },
+            "python": {
+              "module": "aws_cdk.aws_grafana"
+            }
+          }
+        },
         "aws-cdk-lib.aws_greengrass": {
           "targets": {
             "dotnet": {
@@ -1349,6 +1557,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_healthimaging": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.HealthImaging"
+            },
+            "java": {
+              "package": "services.healthimaging"
+            },
+            "python": {
+              "module": "aws_cdk.aws_healthimaging"
+            }
+          }
+        },
         "aws-cdk-lib.aws_healthlake": {
           "targets": {
             "dotnet": {
@@ -1372,6 +1593,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_iam"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_identitystore": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.IdentityStore"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.identitystore"
+            },
+            "python": {
+              "module": "aws_cdk.aws_identitystore"
             }
           }
         },
@@ -1411,6 +1645,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_inspectorv2"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_internetmonitor": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.InternetMonitor"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.internetmonitor"
+            },
+            "python": {
+              "module": "aws_cdk.aws_internetmonitor"
             }
           }
         },
@@ -1492,6 +1739,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_iotfleetwise": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.IoTFleetWise"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.iotfleetwise"
+            },
+            "python": {
+              "module": "aws_cdk.aws_iotfleetwise"
+            }
+          }
+        },
         "aws-cdk-lib.aws_iotsitewise": {
           "targets": {
             "dotnet": {
@@ -1515,6 +1775,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_iotthingsgraph"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_iottwinmaker": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.IoTTwinMaker"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.iottwinmaker"
+            },
+            "python": {
+              "module": "aws_cdk.aws_iottwinmaker"
             }
           }
         },
@@ -1544,6 +1817,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_ivschat": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.IVSChat"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.ivschat"
+            },
+            "python": {
+              "module": "aws_cdk.aws_ivschat"
+            }
+          }
+        },
         "aws-cdk-lib.aws_kafkaconnect": {
           "targets": {
             "dotnet": {
@@ -1567,6 +1853,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_kendra"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_kendraranking": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.KendraRanking"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.kendraranking"
+            },
+            "python": {
+              "module": "aws_cdk.aws_kendraranking"
             }
           }
         },
@@ -1830,6 +2129,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_m2": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.M2"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.m2"
+            },
+            "python": {
+              "module": "aws_cdk.aws_m2"
+            }
+          }
+        },
         "aws-cdk-lib.aws_macie": {
           "targets": {
             "dotnet": {
@@ -1908,6 +2220,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_mediapackagev2": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.MediaPackageV2"
+            },
+            "java": {
+              "package": "services.mediapackagev2"
+            },
+            "python": {
+              "module": "aws_cdk.aws_mediapackagev2"
+            }
+          }
+        },
         "aws-cdk-lib.aws_mediastore": {
           "targets": {
             "dotnet": {
@@ -1918,6 +2243,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_mediastore"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_mediatailor": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.MediaTailor"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.mediatailor"
+            },
+            "python": {
+              "module": "aws_cdk.aws_mediatailor"
             }
           }
         },
@@ -2012,6 +2350,45 @@
             }
           }
         },
+        "aws-cdk-lib.aws_oam": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Oam"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.oam"
+            },
+            "python": {
+              "module": "aws_cdk.aws_oam"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_omics": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Omics"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.omics"
+            },
+            "python": {
+              "module": "aws_cdk.aws_omics"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_opensearchserverless": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.OpenSearchServerless"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.opensearchserverless"
+            },
+            "python": {
+              "module": "aws_cdk.aws_opensearchserverless"
+            }
+          }
+        },
         "aws-cdk-lib.aws_opensearchservice": {
           "targets": {
             "dotnet": {
@@ -2051,6 +2428,32 @@
             }
           }
         },
+        "aws-cdk-lib.aws_organizations": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Organizations"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.organizations"
+            },
+            "python": {
+              "module": "aws_cdk.aws_organizations"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_osis": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.OSIS"
+            },
+            "java": {
+              "package": "services.osis"
+            },
+            "python": {
+              "module": "aws_cdk.aws_osis"
+            }
+          }
+        },
         "aws-cdk-lib.aws_panorama": {
           "targets": {
             "dotnet": {
@@ -2061,6 +2464,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_panorama"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_pcaconnectorad": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.PCAConnectorAD"
+            },
+            "java": {
+              "package": "services.pcaconnectorad"
+            },
+            "python": {
+              "module": "aws_cdk.aws_pcaconnectorad"
             }
           }
         },
@@ -2100,6 +2516,32 @@
             },
             "python": {
               "module": "aws_cdk.aws_pinpointemail"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_pipes": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Pipes"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.pipes"
+            },
+            "python": {
+              "module": "aws_cdk.aws_pipes"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_proton": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.Proton"
+            },
+            "java": {
+              "package": "services.proton"
+            },
+            "python": {
+              "module": "aws_cdk.aws_proton"
             }
           }
         },
@@ -2168,6 +2610,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_redshiftserverless": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.RedshiftServerless"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.redshiftserverless"
+            },
+            "python": {
+              "module": "aws_cdk.aws_redshiftserverless"
+            }
+          }
+        },
         "aws-cdk-lib.aws_refactorspaces": {
           "targets": {
             "dotnet": {
@@ -2207,6 +2662,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_resourceexplorer2": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.ResourceExplorer2"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.resourceexplorer2"
+            },
+            "python": {
+              "module": "aws_cdk.aws_resourceexplorer2"
+            }
+          }
+        },
         "aws-cdk-lib.aws_resourcegroups": {
           "targets": {
             "dotnet": {
@@ -2230,6 +2698,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_robomaker"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_rolesanywhere": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.RolesAnywhere"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.rolesanywhere"
+            },
+            "python": {
+              "module": "aws_cdk.aws_rolesanywhere"
             }
           }
         },
@@ -2428,6 +2909,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_scheduler": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.Scheduler"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.scheduler"
+            },
+            "python": {
+              "module": "aws_cdk.aws_scheduler"
+            }
+          }
+        },
         "aws-cdk-lib.aws_sdb": {
           "targets": {
             "dotnet": {
@@ -2532,6 +3026,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_shield": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.Shield"
+            },
+            "java": {
+              "package": "services.shield"
+            },
+            "python": {
+              "module": "aws_cdk.aws_shield"
+            }
+          }
+        },
         "aws-cdk-lib.aws_signer": {
           "targets": {
             "dotnet": {
@@ -2542,6 +3049,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_signer"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_simspaceweaver": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.SimSpaceWeaver"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.simspaceweaver"
+            },
+            "python": {
+              "module": "aws_cdk.aws_simspaceweaver"
             }
           }
         },
@@ -2662,6 +3182,19 @@
             }
           }
         },
+        "aws-cdk-lib.aws_supportapp": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.SupportApp"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.supportapp"
+            },
+            "python": {
+              "module": "aws_cdk.aws_supportapp"
+            }
+          }
+        },
         "aws-cdk-lib.aws_synthetics": {
           "targets": {
             "dotnet": {
@@ -2672,6 +3205,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_synthetics"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_systemsmanagersap": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.SystemsManagerSAP"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.systemsmanagersap"
+            },
+            "python": {
+              "module": "aws_cdk.aws_systemsmanagersap"
             }
           }
         },
@@ -2698,6 +3244,45 @@
             },
             "python": {
               "module": "aws_cdk.aws_transfer"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_verifiedpermissions": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.VerifiedPermissions"
+            },
+            "java": {
+              "package": "services.verifiedpermissions"
+            },
+            "python": {
+              "module": "aws_cdk.aws_verifiedpermissions"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_voiceid": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.VoiceID"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.voiceid"
+            },
+            "python": {
+              "module": "aws_cdk.aws_voiceid"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_vpclattice": {
+          "targets": {
+            "dotnet": {
+              "namespace": "Amazon.CDK.AWS.VpcLattice"
+            },
+            "java": {
+              "package": "software.amazon.awscdk.services.vpclattice"
+            },
+            "python": {
+              "module": "aws_cdk.aws_vpclattice"
             }
           }
         },
@@ -2763,6 +3348,19 @@
             },
             "python": {
               "module": "aws_cdk.aws_workspaces"
+            }
+          }
+        },
+        "aws-cdk-lib.aws_workspacesweb": {
+          "targets": {
+            "dotnet": {
+              "package": "Amazon.CDK.AWS.WorkSpacesWeb"
+            },
+            "java": {
+              "package": "services.workspacesweb"
+            },
+            "python": {
+              "module": "aws_cdk.aws_workspacesweb"
             }
           }
         },
@@ -2912,7 +3510,7 @@
       },
       "targets": {
         "dotnet": {
-          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/main/logo/default-256-dark.png",
           "namespace": "Amazon.CDK",
           "packageId": "Amazon.CDK.Lib"
         },
@@ -2992,7 +3590,7 @@
   },
   "name": "discord-bot-cdk-construct",
   "readme": {
-    "markdown": "# discord-bot-cdk-construct\n\n![Version Badge](https://img.shields.io/github/package-json/v/GEMISIS/discord-bot-cdk-construct?color=blue&logo=Discord) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)\n\nA CDK Construct for creating a serverless Discord bot. All you need to do is supply your code to handle the commands!\n\n# Architecture Overview\n\nThis is the architecture for how this project is laid out server-side. The tools used to create these diagrams are:\n\n- [Architecture Diagrams](https://app.diagrams.net)\n\nThe bot has a fairly straightforward setup:\n\n![The architecture diagram for the project.](https://github.com/GEMISIS/discord-bot-cdk-construct/blob/main/diagrams/architecture.png?raw=true)\n\nThe biggest confusion likely stems from the use of two Lambda functions instead of one. This is to ensure that the initial request can respond within Discord's 3 second time limit and return a proper response to the user.\n\n# Sample Usage\n\nThe usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) stack that will be used, and a \"commands\" script that actually handles responding. It's recommended that you are familiar with CDK first before diving into using this.\n\n## Handling Commands\n\nFor handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:\n\n```typescript\nimport {Context, Callback} from 'aws-lambda';\nimport { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets, sendFollowupMessage } from 'discord-bot-cdk-construct';\n\nexport async function handler(event: IDiscordEventRequest, context: Context,\n  callback: Callback): Promise<string> {\n\n  const discordSecret = await getDiscordSecrets();\n  const endpointInfo = {\n    authToken: discordSecret?.authToken,\n    applicationId: discordSecret?.applicationId\n  };\n  const response = {\n    tts: false,\n    content: 'Hello world!',\n    embeds: [],\n    allowedMentions: [],\n  };\n  if (event.jsonBody.token && await sendFollowupMessage(endpointInfo, event.jsonBody.token, response)) {\n    console.log('Responded successfully!');\n  } else {\n    console.log('Failed to send response!');\n  }\n  return '200';\n}\n```\n\n## Using the Construct\n\nTo create a stack to make use of the above script, you can create a stack like so:\n\n```typescript\nimport {Duration, Stack} from 'aws-cdk-lib';\nimport {Runtime} from 'aws-cdk-lib/aws-lambda';\nimport {NodejsFunction} from 'aws-cdk-lib/aws-lambda-nodejs';\nimport {DiscordBotConstruct} from 'discord-bot-cdk-construct';\nimport {Construct} from 'constructs';\nimport * as path from 'path';\n\n/**\n * Creates a sample Discord bot endpoint that can be used.\n */\nexport class SampleDiscordBotStack extends Stack {\n  /**\n   * The constructor for building the stack.\n   * @param {Construct} scope The Construct scope to create the stack in.\n   * @param {string} id The ID of the stack to use.\n   */\n  constructor(scope: Construct, id: string) {\n    super(scope, id);\n\n    // Create the Commands Lambda.\n    const discordCommandsLambda = new NodejsFunction(this, 'discord-commands-lambda', {\n      runtime: Runtime.NODEJS_14_X,\n      entry: path.join(__dirname, '../functions/DiscordCommands.ts'),\n      handler: 'handler',\n      timeout: Duration.seconds(60),\n    });\n\n    const discordBot = new DiscordBotConstruct(this, 'discord-bot-endpoint', {\n      commandsLambdaFunction: discordCommandsLambda,\n    });\n  }\n}\n```\n\nThis can of course then be used in your CDK application like so:\n\n```typescript\nimport { App } from 'aws-cdk-lib';\nimport { SampleDiscordBotStack } from './stacks/sample-discord-bot-stack';\n\nconst app = new App();\nconst startAPIStack = new SampleDiscordBotStack(app, 'SampleDiscordBotStack');\n```\n\n## Full Demo Project\n\nA full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).\n\n## Packaging with JSII\n\nIn order to package everything with JSII, ensure you have the following installed:\n\n- Python3\n- Open JDK\n- Maven\n\nSee [JSII's Prerequisites Documentation](https://aws.github.io/jsii/user-guides/lib-author/) for more information.\n\n# Useful commands\n\n- `npm run build`   compile typescript to js\n- `npm run watch`   watch for changes and compile\n- `npm run test`    perform the jest unit tests\n- `npm run lint`       perform a lint check across the code\n- `npm run fix-lint`   fix any lint issues automatically where possible\n- `npm run package`   package all of the bindings for distribution\n"
+    "markdown": "# discord-bot-cdk-construct\n\n![Version Badge](https://img.shields.io/github/package-json/v/GEMISIS/discord-bot-cdk-construct?color=blue&logo=Discord) [![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)\n\nA CDK Construct for creating a serverless Discord bot. All you need to do is supply your code to handle the commands!\n\n# Architecture Overview\n\nThis is the architecture for how this project is laid out server-side. The tools used to create these diagrams are:\n\n- [Architecture Diagrams](https://app.diagrams.net)\n\nThe bot has a fairly straightforward setup:\n\n![The architecture diagram for the project.](https://github.com/GEMISIS/discord-bot-cdk-construct/blob/main/diagrams/architecture.png?raw=true)\n\nThe biggest confusion likely stems from the use of two Lambda functions instead of one. This is to ensure that the initial request can respond within Discord's 3 second time limit and return a proper response to the user.\n\n# Sample Usage\n\nThe usage is split into two parts: The [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html) stack that will be used, and a \"commands\" script that actually handles responding. It's recommended that you are familiar with CDK first before diving into using this.\n\n## Handling Commands\n\nFor handling commands, you just need to provide a Lambda function for sending response to Discord's Web APIs. As an example of how this can be done:\n\n```typescript\nimport {Context, Callback} from 'aws-lambda';\nimport { IDiscordEventRequest, IDiscordResponseData, getDiscordSecrets, sendFollowupMessage } from 'discord-bot-cdk-construct';\n\nexport async function handler(event: IDiscordEventRequest, context: Context,\n  callback: Callback): Promise<string> {\n\n  const discordSecret = await getDiscordSecrets();\n  const endpointInfo = {\n    authToken: discordSecret?.authToken,\n    applicationId: discordSecret?.applicationId\n  };\n  const response = {\n    tts: false,\n    content: 'Hello world!',\n    embeds: [],\n    allowedMentions: [],\n  };\n  if (event.jsonBody.token && await sendFollowupMessage(endpointInfo, event.jsonBody.token, response)) {\n    console.log('Responded successfully!');\n  } else {\n    console.log('Failed to send response!');\n  }\n  return '200';\n}\n```\n\n## Using the Construct\n\nTo create a stack to make use of the above script, you can create a stack like so:\n\n```typescript\nimport {Duration, Stack} from 'aws-cdk-lib';\nimport {Runtime} from 'aws-cdk-lib/aws-lambda';\nimport {NodejsFunction} from 'aws-cdk-lib/aws-lambda-nodejs';\nimport {DiscordBotConstruct} from 'discord-bot-cdk-construct';\nimport {Construct} from 'constructs';\nimport * as path from 'path';\n\n/**\n * Creates a sample Discord bot endpoint that can be used.\n */\nexport class SampleDiscordBotStack extends Stack {\n  /**\n   * The constructor for building the stack.\n   * @param {Construct} scope The Construct scope to create the stack in.\n   * @param {string} id The ID of the stack to use.\n   */\n  constructor(scope: Construct, id: string) {\n    super(scope, id);\n\n    // Create the Commands Lambda.\n    const discordCommandsLambda = new NodejsFunction(this, 'discord-commands-lambda', {\n      runtime: Runtime.NODEJS_18_X,\n      entry: path.join(__dirname, '../functions/DiscordCommands.ts'),\n      handler: 'handler',\n      timeout: Duration.seconds(60),\n    });\n\n    const discordBot = new DiscordBotConstruct(this, 'discord-bot-endpoint', {\n      commandsLambdaFunction: discordCommandsLambda,\n    });\n  }\n}\n```\n\nThis can of course then be used in your CDK application like so:\n\n```typescript\nimport { App } from 'aws-cdk-lib';\nimport { SampleDiscordBotStack } from './stacks/sample-discord-bot-stack';\n\nconst app = new App();\nconst startAPIStack = new SampleDiscordBotStack(app, 'SampleDiscordBotStack');\n```\n\n## Full Demo Project\n\nA full example project utilzing this construct can be found [here](https://github.com/RGB-Schemes/oculus-start-bot). Specifically, the [start-api-stack.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/stacks/start-api-stack.ts) file uses the construct, with [DiscordCommands.ts](https://github.com/RGB-Schemes/oculus-start-bot/blob/mainline/src/functions/DiscordCommands.ts) being the commands file (like shown above).\n\n## Packaging with JSII\n\nIn order to package everything with JSII, ensure you have the following installed:\n\n- Python3\n- Open JDK\n- Maven\n\nSee [JSII's Prerequisites Documentation](https://aws.github.io/jsii/user-guides/lib-author/) for more information.\n\n# Useful commands\n\n- `npm run build`   compile typescript to js\n- `npm run watch`   watch for changes and compile\n- `npm run test`    perform the jest unit tests\n- `npm run lint`       perform a lint check across the code\n- `npm run fix-lint`   fix any lint issues automatically where possible\n- `npm run package`   package all of the bindings for distribution\n"
   },
   "repository": {
     "type": "git",
@@ -3924,6 +4522,6 @@
       "symbolId": "src/types:IDiscordUser"
     }
   },
-  "version": "0.3.4",
-  "fingerprint": "cHCOAXyI1bIoqFeb+R6iILG8RPMVSRcb2UzPs+7frUs="
+  "version": "0.3.5",
+  "fingerprint": "ymZKTBBz/a+MFkcZRV/FmjnNBlOXbTwJQcJ7jeWqTQk="
 }

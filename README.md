@@ -77,7 +77,7 @@ export class SampleDiscordBotStack extends Stack {
 
     // Create the Commands Lambda.
     const discordCommandsLambda = new NodejsFunction(this, 'discord-commands-lambda', {
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_18_X,
       entry: path.join(__dirname, '../functions/DiscordCommands.ts'),
       handler: 'handler',
       timeout: Duration.seconds(60),
